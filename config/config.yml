@@ -1,0 +1,47 @@
+---
+# See http://mumble-ruby-pluginbot.readthedocs.io/en/master/explain_the_config.html for the documentation of this config file.
+
+config:
+  version: 2.2
+
+debug: true
+language: en
+
+main:
+  tempdir: "/home/botmaster/temp/"
+  logfile: "/home/botmaster/logs/bot1.log"
+  ducking: false
+  automute_if_alone: true
+  stop_on_unregistered: true
+  channel_notify: 0
+  controllable: true
+  whitelist_enabled: false
+  control:
+    string: "."
+    message:
+      private_only: false
+      registered_only: true
+    historysize: 20
+  display:
+    comment:
+      set: true
+    user:
+      whitelisted: # See http://mumble-ruby-pluginbot.rtfd.io/en/master/explain_the_config.html#main-user-whitelisted
+      superuser: # See http://mumble-ruby-pluginbot.rtfd.io/en/master/explain_the_config.html#main-user-superuser
+      banned: # See http://mumble-ruby-pluginbot.rtfd.io/en/master/explain_the_config.html#main-user-banned
+      bound: # See http://mumble-ruby-pluginbot.rtfd.io/en/master/explain_the_config.html#main-user-bound
+  certfolder: "/home/botmaster/certs/"
+  fifo: "/home/botmaster/mpd1/mpd.fifo"
+  logo: "../config/logo/logo.html"
+  timer:
+    ticks:  3600
+  blacklisted_commands: ""
+
+mumble:
+  use_vbr: true
+  bitrate: 72000
+  host: m.natenom.com
+  port: 64738
+  name: "MumbleRubyPluginbot"
+  password: ''
+  channel: Bottest
