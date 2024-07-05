@@ -251,8 +251,6 @@ class MumbleMPD
         end
       end
       logger "OK: Primary Bot Setup complete"
-      @cli.player.stream_named_pipe('/home/reinhard/mpd1/mpd.fifo')
-      logger "Audiopipe connected to: "+Conf.gvalue("main:fifo")
       @run = true
 
       init = Hash.new           # New Method! (Breaks compatibility with old plugins)
@@ -328,6 +326,14 @@ class MumbleMPD
   end
 
   def handle_text_message(msg)
+    @plugin.each do |plugin|
+      begin
+        plugin.handle_raw_input(msg) if plugin.name != "false"
+      rescue
+        logger "ERROR: Plugin #{plugin.name} throws error in handle_chat (#{$!})"
+      end
+    end
+
     if msg.actor
       msg.username    = @cli.users[msg.actor].name
 

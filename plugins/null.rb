@@ -25,4 +25,7 @@ class Null < Plugin
   def handle_chat(msg, message)
     #this plugin does nothing!
   end
+
+  def handle_raw_input(text)
+  end
 end

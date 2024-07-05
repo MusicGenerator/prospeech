@@ -1,0 +1,5 @@
+plugin:
+  piper:
+    exe_path: "~/src/piper/piper/"
+    data_path: ""
+    options: "--model ~/src/piper/piper/de_DE-thorsten-medium.onnx"

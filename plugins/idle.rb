@@ -63,4 +63,7 @@ class Idle < Plugin
       end
     end
   end
+
+  def handle_raw_input(text)
+  end
 end

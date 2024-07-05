@@ -36,11 +36,11 @@ function start_bot_ruby() {
   rvm use @bots
 
   ### We need to be in this directory in order to start the bot(s).
-  cd $HOME/src/prospeach/core
+  cd $HOME/src/prospeech/core
 
   ### Export enviroment variable for tmux
   export HOME=$HOME
-  tmux new-session -d -s "bot${botid}" "while true; do LD_LIBRARY_PATH=$HOME/src/celt/lib/ ruby $HOME/src/prospeach/core/pluginbot.rb --config=$HOME/src/bot${botid}_conf.yml >> $HOME/logs/bot${botid}.log 2>&1 ; sleep 10; done"
+  tmux new-session -d -s "bot${botid}" "while true; do LD_LIBRARY_PATH=$HOME/src/celt/lib/ ruby $HOME/src/prospeech/core/pluginbot.rb --config=$HOME/src/bot${botid}_conf.yml >> $HOME/logs/bot${botid}.log 2>&1 ; sleep 10; done"
 }
 
 function stop_bot_ruby() {
