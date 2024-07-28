@@ -23,13 +23,14 @@ def init(init)
 
   def handle_chat(msg, message)
     super
-    logger(message)
     if (message == "myvoice") && (@locked == -1)
+      logger(message)
       @locked = msg.user_id
       logger("userid #{@locked} locked")
     end
 
     if (message == "notmyvoice") && (@locked == msg.user_id)
+      logger(message)
       @locked = -1
       logger("actor #{userid} unlocked")
     end
