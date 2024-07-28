@@ -10,7 +10,6 @@ Dir["../plugins/*.rb"].each { |f| require f }
 
 require 'mumble-ruby'
 require 'rubygems'
-#require 'ruby-mpd'
 require 'thread'
 require 'optparse'
 require 'i18n'
@@ -28,7 +27,7 @@ class String
   end
 end
 
-class MumbleMPD
+class Mumble
   attr_reader :run
 
   def initialize
@@ -97,14 +96,6 @@ class MumbleMPD
 
       opts.on("--fifo=", "Path to fifo") do |v|
         Conf.svalue("main:fifo", v.to_s)
-      end
-
-      opts.on("--mpdhost=", "MPD's Hostname") do |v|
-        Conf.svalue("mpd:host", v)
-      end
-
-      opts.on("--mpdport=", "MPD's Port") do |v|
-        Conf.svalue("mpd:port", v.to_i)
       end
 
       opts.on("--controllable=", "true if bot should be controlled from chatcommands") do |v|
@@ -628,13 +619,6 @@ class MumbleMPD
                 @cli.text_user(msg.actor, I18n.t("help.internal", :cc => Conf.gvalue("main:control:string")))
               end
 
-              if message == "play"
-                output = "playing testfile"
-                @cli.player.stream_named_pipe('/home/reinhard/mpd1/mpd.fifo')
-                #@cli.player.play_file('/home/reinhard/src/piper/piper/test.wav')
-                @cli.text_user(msg.actor, output)
-              end
-
               if message == 'internals'
                 @cli.text_user(msg.actor, I18n.t("help.internal", :cc => Conf.gvalue("main:control:string")))
               end
@@ -743,7 +727,7 @@ end
 #
 # => planned for remove
 #
-client = MumbleMPD.new
+client = Mumble.new
 client.init_settings
 
 puts "OK: Bot is starting..."
