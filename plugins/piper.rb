@@ -36,6 +36,7 @@ def init(init)
       @locked = msg.user_id
       @actor = msg.actor
       @@bot[:cli].text_user(msg.actor,"Bot spricht für Dich und folgt Dir!")
+      @@bot[:cli].set_comment("Ich bin #{msg.username}'s Sprecher.")
       logger("userid #{@locked} locked")
     end
 
@@ -44,6 +45,7 @@ def init(init)
       @locked = -1
       @actor = -1
       @@bot[:cli].text_user(msg.actor, "Bot ist wieder frei für andere Benutzer, wenn Du der einzige Benutzer am Server bist ist ein .notmyvoice nicht mehr notwendig")
+      @@bot[:cli].set_comment('MR-Bot Thorsten (sorry not functional yet)')
       logger("actor #{msg.user_id} unlocked")
     end
 
