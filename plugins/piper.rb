@@ -42,13 +42,14 @@ def init(init)
       logger(message)
       @locked = -1
       @actor = -1
-      logger("actor #{userid} unlocked")
+      logger("actor #{msg.user_id} unlocked")
     end
 
   end
 
   def handle_raw_input(msg)
-    if (msg.user_id == @locked)
+
+    if (@@bot[:cli].users[msg.actor].user_id == @locked)
       @actor = msg.actor            # Update actor ID on every message because relogging gives an other ID and Channel-Following don't work without correct ID
       nachricht = Shellwords.escape(msg.message)
       `echo #{nachricht} | #{Conf.gvalue("plugin:piper:exe_path")}piper --samlpe_rate 48000 #{Conf.gvalue("plugin:piper:options")} --output_file #{Conf.gvalue("plugin:piper:data_path")}say.wav` 
