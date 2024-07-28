@@ -23,7 +23,8 @@ def init(init)
   end
 
   def handle_user_state_change(msg)
-    if (@locked != -1) && (msg.actor) && (msg.channel_id != "")
+    logger("handler.actor #{msg.session} / saved.actor #{@actor}")
+    if (@locked != -1) && (msg.session == @actor) && (msg.channel_id != "")
       logger "UserMoving to ChannelID: #{msg.channel_id}"
       @@bot[:cli].join_channel(msg.channel_id)
     end
