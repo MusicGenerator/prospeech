@@ -27,7 +27,7 @@ class String
   end
 end
 
-class Mumble
+class MumbleBOT
   attr_reader :run
 
   def initialize
@@ -314,6 +314,13 @@ class Mumble
   def handle_user_state_changes(msg)
     #msg.actor = session_id of user who did something on someone, if self done, both is the same.
     #msg.session = session_id of the target
+    @plugin.each do |plugin|
+      begin
+        plugin.handle_user_state_change(msg) if plugin.name != "false"
+      rescue
+        logger "ERROR: Plugin #{plugin.name} throws error in handle_user_changes (#{$!})"
+      end
+    end
   end
 
   def handle_text_message(msg)
@@ -727,7 +734,7 @@ end
 #
 # => planned for remove
 #
-client = Mumble.new
+client = MumbleBOT.new
 client.init_settings
 
 puts "OK: Bot is starting..."

@@ -28,4 +28,7 @@ class Null < Plugin
 
   def handle_raw_input(text)
   end
+
+  def handle_user_state_change(msg)
+  end
 end
