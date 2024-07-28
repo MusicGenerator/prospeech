@@ -28,16 +28,6 @@ function update_pluginbot() {
     return 0
 }
 
-function update_mpd() {
-    echo -en "Not yet implemented :)\nThough in most cases not needed because we use the distributions mpd package."
-    return 0
-}
-
-function update_youtubedl() {
-    ~/src/youtube-dl -U
-    return 0
-}
-
 function update_celt-gem() {
     cd ~/src/celt-ruby
     git pull origin master
@@ -98,8 +88,6 @@ do
     a "Update everything bot related at once..."\
     c "Edit bot configuration file..."\
     1 "Update only Mumble-Ruby-Pluginbot"\
-    2 "Update only MPD"\
-    3 "Update only youtube-dl script"\
     4 "Update only CELT gem"\
     5 "Update only OPUS gem"\
     6 "Update only Mumble-Ruby gem"\
@@ -112,8 +100,6 @@ do
     case $menuitem in
             a)
                 update_pluginbot
-                update_mpd
-                update_youtubedl
                 update_celt-gem
                 update_opus-gem
                 update_mumble-ruby-gem
@@ -123,12 +109,6 @@ do
             ;;
             1)
                 update_pluginbot
-            ;;
-            2)
-                update_mpd
-            ;;
-            3)
-                update_youtubedl
             ;;
             4)
                 update_celt-gem

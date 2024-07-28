@@ -23,7 +23,6 @@ OPTIONS
   stop                        Stop the bot(s)
   start                       Start the bot(s)
   restart                     Restart the bot(s)
-  uytdl|updateytdl            Update youtube-dl
   log                         Show the bots log using tail
   status                      Show if bots are running or not
   -h|--help                   Show this help
@@ -52,19 +51,11 @@ function start_bot_mpd() {
   local botid=${1}
   mpd $HOME/mpd${botid}/mpd.conf > /dev/null 2>&1
 }
-function stop_bot_mpd() {
-  local botid=${1}
-  #local mpdpid=$(ps ax | grep -i mpd | grep -v grep | grep -E "mpd.*mpd${botid}" | cut -d" " -f1)
-  local mpdpid=$(ps ax | grep -i mpd | grep -v grep | sed 's/^\ *//g' | grep -E "mpd.*mpd1" | cut -d" " -f1)
-
-  kill ${mpdpid} > /dev/null 2>&1
-}
 
 function start_all_bots() {
   for botid in ${BOTS_ENABLED};
   do
     start_bot_ruby ${botid}
-    start_bot_mpd ${botid}
   done
 }
 
@@ -72,7 +63,6 @@ function stop_all_bots() {
   for botid in ${BOTS_ENABLED};
   do
     stop_bot_ruby ${botid}
-    stop_bot_mpd ${botid}
   done
 }
 
@@ -99,40 +89,22 @@ function status_all_bots() {
   done
 }
 
-function update_youtubedl() {
-  # Do an update of youtube-dl on every start as there are very often updates.
-  if [ -f $HOME/src/youtube-dl ]; then
-      echo "Updating youtube-dl..."
-      $HOME/src/youtube-dl -U
-  fi
-}
-
-function show_disclaimer() {
+show_disclaimer() {
   cat <<EOF
 
   Your bot(s) should now be connected to the configured Mumble server.
 
-  _LOGGING/DEBUGGING_
-    If something doesn't work please read at
-    http://mumble-ruby-pluginbot.rtfd.io/en/master/known_problems.html
-
   _START AS APPROPRIATE USER_
-    Make sure to run this script as user botmaster if you used the official
-    installation documentation and DO NOT RUN THIS SCRIPT AS root.
-    The official documentation can be found at http://mumble-ruby-pluginbot.readthedocs.io/
-
-  _UPDATE THE BOT (AND ITS DEPENDENCIES)_
-    If you want to update the Mumble-Ruby-Pluginbot (and its dependencies) please
-    run ~/src/mumble-ruby-pluginbot/scripts/updater.sh
-
-  _OFFICIAL DOCUMENTATION_
-    Read the official documentation at http://mumble-ruby-pluginbot.readthedocs.io/
+    Make sure to run this script as user 
+    DO NOT RUN THIS SCRIPT AS root.
+    Some documentation fit also here can be found at 
+    http://mumble-ruby-pluginbot.readthedocs.io/
 
   _BUGS/WISHES/IDEAS_
     If you think you found a bug, have a wish for the bot or some ideas please don't
-    hesitate to create an issue at https://github.com/MusicGenerator/mumble-ruby-pluginbot/issues
+    hesitate to create an issue at https://github.com/MusicGenerator/prospeech/issues
 
-  Have fun with the Mumble-Ruby-Pluginbot :)
+  Have fun with the prospeech
 
 EOF
 }
@@ -158,13 +130,11 @@ function parse() {
            shift
            ;;
        start)
-           update_youtubedl
            restart_all_bots
            show_disclaimer
            shift
            ;;
        restart)
-           update_youtubedl
            restart_all_bots
            show_disclaimer
            shift
@@ -175,10 +145,6 @@ function parse() {
            ;;
        -h|--help)
            show_help
-           shift
-           ;;
-       uytdl|updateytdl)
-           update_youtubedl
            shift
            ;;
        log)
