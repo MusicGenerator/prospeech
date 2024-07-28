@@ -37,7 +37,6 @@ def init(init)
   end
 
   def handle_raw_input(msg)
-    logger(msg.actor)
     if (msg.actor == @locked)
       nachricht = Shellwords.escape(msg.message)
       `echo #{nachricht} | #{Conf.gvalue("plugin:piper:exe_path")}piper --samlpe_rate 48000 #{Conf.gvalue("plugin:piper:options")} --output_file #{Conf.gvalue("plugin:piper:data_path")}say.wav` 
