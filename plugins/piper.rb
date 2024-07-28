@@ -25,11 +25,11 @@ def init(init)
     super
     logger(message)
     if (message == "myvoice") && (@locked == -1)
-      @locked = msg.actor
+      @locked = msg.user_id
       logger("userid #{@locked} locked")
     end
 
-    if (message == "notmyvoice") && (@locked == msg.actor)
+    if (message == "notmyvoice") && (@locked == msg.user_id)
       @locked = -1
       logger("actor #{userid} unlocked")
     end
